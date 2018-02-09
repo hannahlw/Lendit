@@ -1,0 +1,19 @@
+= simple_form_for item, remote: true, url: items_path do |f|
+  .modal-header
+    button.close type="button" data-dismiss="modal"
+      span ×
+    span aria-hidden="true"
+    h4.modal-title Post New Item
+  .modal-body
+    .row
+      .col-sm-12
+        = f.input :name
+      .col-sm-12
+        = f.input_field :description
+
+
+  .modal-footer
+    .buttons.pull-right
+      = f.submit 'Post New Items to Lend It', class: 'btn btn-secondary btn-user-submit', id: 'show-link-button'
+      span.between-buttons Or
+      = f.submit 'Cancel', class: 'btn btn-secondary btn-user-submit', id: 'send-invite-button'

@@ -1,0 +1,28 @@
+h1
+ span.page-header-icon
+  | Lend It Items
+
+button#create-item-link.btn.btn-primary.pull-right href='#' data-toggle="modal" data-target="#create-item-modal" Post New Item
+
+table.table.table-index
+  thead
+    tr
+      th Name
+      th Description
+      th User
+
+  tbody
+    - @items.each do |item|
+      tr
+        = content_tag(:td, item.name)
+        = content_tag(:td, item.description, class: 'user-disabled-shadow')
+        = content_tag(:td, [item.user.first_name, item.user.last_name].reject(&:blank?).join(' '))
+        / - if current_user.super_admin?
+          / td= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' }
+          / td= link_to 'Edit', edit_item_path(item)
+
+= content_for :modal_container do
+    #create-item-modal.modal.fade tabindex="-1" role="dialog" aria-labelledby="create-item-modal"
+      .modal-dialog role="document"
+        .modal-content
+          = render 'form_item_modal', item: Item.new
